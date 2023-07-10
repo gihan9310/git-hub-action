@@ -1,5 +1,6 @@
 FROM openjdk:11
-VOLUME /tmp
-COPY target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+EXPOSE 8090 8000
+ADD target/*.jar app.jar
+ADD entrypoint.sh entrypoint.sh
+ENTRYPOINT ["sh","/entrypoint.sh"]
 
