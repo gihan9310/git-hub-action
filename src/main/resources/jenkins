@@ -14,7 +14,7 @@ pipeline{
         stage('Build Docker Image'){
             steps{
                script{
-                bat 'docker build -t gihansoft/test-docker-image .'
+                bat 'docker build -t #####soft/test-docker-image .'
               }
             }
 
@@ -28,7 +28,7 @@ pipeline{
                        bat 'docker login -u **** -p *******'
                      }
 
-                     bat 'docker push gihansoft/test-docker-image'
+                     bat 'docker push *****soft/test-docker-image'
                  }
              }
 
