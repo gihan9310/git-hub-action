@@ -1,0 +1,37 @@
+pipeline{
+    agent any
+    tools{
+        maven 'MAVEN'
+        jdk "JDK"
+    }
+    stages{
+        stage('build Maven'){
+            steps{
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/gihan9310/git-hub-action']])
+                bat 'mvn clean install'
+            }
+        }
+        stage('Build Docker Image'){
+            steps{
+               script{
+                bat 'docker build -t gihansoft/test-docker-image .'
+              }
+            }
+
+        }
+         stage('Push Docker Image'){
+
+             steps{
+
+                 script{
+                     withCredentials([string(credentialsId: 'Pwd', variable: 'Pwd')]) {
+                       bat 'docker login -u **** -p *******'
+                     }
+
+                     bat 'docker push gihansoft/test-docker-image'
+                 }
+             }
+
+         }
+    }
+}
